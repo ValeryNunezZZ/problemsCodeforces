@@ -20,62 +20,29 @@ void casito(){
 
     for(int i=0 ; i<n ; i++) cin>>nums[i];
 
-    vector<int> pos;
+    sort(nums.begin(), nums.end());
 
-    for(int i=0 ; i<n-1 ; i++){
-        if(nums[i] > nums[i+1]){
-            pos.push_back(i);
+    int pos = n-1;
+
+    while(pos >= 0){
+        int ant = nums[pos];
+        int cuantos = 0;
+
+        while(pos >= 0 && ant == nums[pos]){
+            cuantos++;
+            pos--;
+        }
+
+        if(cuantos%2 == 0){
+            cout<<"YES"<<endl;
+            return;
+        }else if(pos >= 0 && ant - nums[pos] <= k){
+            cout<<"YES"<<endl;
+            return;
         }
     }
 
-    pos.push_back(nums.size()-1);
-
-    vector<int> faltan(pos.size(), 0);
-    vector<int> acumulado(pos.size(), 0);
-
-    int finalPos = n-1;
-
-    for(int i=pos.size()-2 ; i>=0 ; i--){
-
-        int p = pos[i];
-        int base = nums[p];
-
-        while(p < pos[i+1] && base > nums[p+1]){
-            base += nums[p+1];
-            p++;
-        }
-
-        if(p == pos[i+1]){
-            if(base > nums[i+1] + faltan[i+1]){
-                finalPos = i;
-            }
-        }else{
-            while(p < pos[i+1]){
-                if(base <= nums[p+1]){
-                    int aux = nums[p+1] - base + 1;
-                    faltan[i] += aux;
-                    base += nums[p+1] + aux;
-                }else{
-                    base += nums[p+1];
-                }
-
-                p++;
-            }
-        }
-
-        faltan[i] += faltan[i+1];
-    }
-
-    int minRes = 0;
-
-    for(int i=finalPos ; i<n ; i++){
-        minRes += nums[i];
-    }
-
-    cout<<"pos = "<<finalPos<<endl;
-
-    cout<<minRes<<endl;
-
+    cout<<"NO"<<endl;
 }
 
 
