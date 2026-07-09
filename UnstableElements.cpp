@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -13,7 +12,7 @@
 
 using namespace std;
 
-void casito(){
+void casito(int cont){
     int n, k; cin>>n>>k;
 
     vector<int> nums(n);
@@ -40,48 +39,45 @@ void casito(){
 
     sort(cambios.begin(), cambios.end());
 
-    for(int i=0 ; i<cambios.size() ; i++){
-        cout<<cambios[i]<<" ";
-    }
-
     int marcados = cambios.size();
     int posCambios = 0;
     int res = 0;
     int total = n;
-    int menosCuanto = 0;
+    int eliminados = 0;
 
     while(posCambios < cambios.size()){
-                cout<<"total = "<<total<<endl;
-        if(total < k || total > k){
-            int falta = abs(k - total);
+        if(total < k){
+            int falta = k - total;
 
             if(falta%marcados == 0) res++;
+        }else if(total > k){
+            int falta = total - k;
+
+            if(falta%marcados == 0){
+                if(falta/marcados < cambios[posCambios] - eliminados){
+                    res++;
+                }
+            }
         }else if(total == k){
-            cout<<"mm"<<endl;
             res++;
         }
 
         int ant = cambios[posCambios];
-        int eliminados = 0;
-
-        cout<<"posCmbio = "<<posCambios<<endl;
-
-            cout<<"ant = "<<anterior<<endl;
+        int aux = ant - eliminados;
+        int c = 0;
+        eliminados += aux;
 
         while(posCambios < cambios.size() && cambios[posCambios] == ant){
             posCambios++;
-            eliminados++;
+            c++;
         }
-
-        cout<<"elim = "<<eliminados<<endl;
-        cout<<endl;
     
-        total -= eliminados * ant;
+        total -= marcados * aux;
 
-        marcados -= eliminados;
+        marcados -= c;
     }
 
-    cout<<"res = "<<res<<endl;
+    cout<<res<<endl;
 
 }
 
@@ -93,10 +89,12 @@ int main(){
     int t = 1;
     cin>>t;
 
-    //2168...
+    int cont = 1;
+    //282
     
     while (t--){
-        casito();
+        casito(cont);
+        cont++;
     }
     return 0;
     
