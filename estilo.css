@@ -1,0 +1,54 @@
+
+
+@media (min-width: 481px) and (max-width: 768px){
+    .comlumn{
+
+    }
+
+    #visit{
+        width: 100%;
+    }
+
+    #points{
+        width: 50%;
+    }
+
+    #main{
+        width: 50%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1079px){
+    .comlumn{
+
+    }
+
+    #visit{
+        width: 50%;
+    }
+
+    #points{
+        width: 50%;
+    }
+
+    #main{
+        width: 100%;
+    }
+}
+@media (max-width: 1080px){
+    .comlumn{
+
+    }
+
+    #visit{
+        width: 33%;
+    }
+
+    #points{
+        width: 33%;
+    }
+
+    #main{
+        width: 33%;
+    }
+}
